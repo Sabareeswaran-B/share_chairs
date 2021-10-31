@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "801416631553",
+    "project_id": "share-chairs",
+    "storage_bucket": "share-chairs.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:801416631553:android:d178bbe9968449d498f700",
+        "android_client_info": {
+          "package_name": "com.example.share_chairs"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "801416631553-44jobbc54a8qs99mpksj9tdsjm48clfa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFg0tGCCAs7CO2HEDO88uUdT7jxyUNW4k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "801416631553-44jobbc54a8qs99mpksj9tdsjm48clfa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
