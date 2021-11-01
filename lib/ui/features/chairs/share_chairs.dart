@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:share_chairs/common/constant.dart';
 
@@ -18,21 +20,203 @@ class _ShareChairsState extends State<ShareChairs> {
   int _selectedRoom = 0;
   int _selectedRoomto = 1;
   int _selectedColor = 0;
-  List<String> rooms = [
-    'Inventory',
-    'VM Hall',
-    'Kalam Hall',
-    'Principal Office',
-    'Other'
-  ];
-  List<String> roomsto = [
-    'Inventory',
-    'VM Hall',
-    'Kalam Hall',
-    'Principal Office',
-    'Other'
-  ];
+  List<String> rooms = [];
+  List<String> roomsto = [];
   List<String> colors = ['White', 'Sandal', 'Brown', 'Black', 'Other'];
+
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
+
+  Future getData() async {
+    var res = await FirebaseFirestore.instance.collection(DETAILS).get();
+    var doc = res.docs;
+    rooms.addAll(doc.map((val) => val.data()['room']));
+    rooms.removeWhere((element) => element == "broken");
+    rooms.add("Other");
+    roomsto = rooms;
+  }
+
+  Future shareChairs() async {
+    if (roomsto[_selectedRoomto] != rooms[_selectedRoom]) {
+      await deleteChairs();
+    } else {
+      Fluttertoast.showToast(
+        msg: "From and to shoudn't be the same",
+        backgroundColor: Colors.red,
+      );
+    }
+  }
+
+  Future addChairs() async {
+    var res = await FirebaseFirestore.instance
+        .collection(DETAILS)
+        .where("room",
+            isEqualTo: roomsto[_selectedRoomto] == "Other"
+                ? roomto.text
+                : roomsto[_selectedRoomto])
+        .get();
+    var stats = await FirebaseFirestore.instance
+        .collection(STATS)
+        .where("collegeName", isEqualTo: "RVSCAS")
+        .get();
+    var doc = res.docs;
+    if (doc.isNotEmpty) {
+      Map chairs = doc[0].data()['chairs'];
+      var val = chairs.containsKey(colors[_selectedColor])
+          ? int.parse(nos.text) + chairs[colors[_selectedColor]]
+          : int.parse(nos.text);
+      try {
+        await FirebaseFirestore.instance
+            .collection(DETAILS)
+            .doc(doc[0].id)
+            .set({
+          "chairs": {colors[_selectedColor]: val}
+        }, SetOptions(merge: true));
+        await FirebaseFirestore.instance
+            .collection(STATS)
+            .doc(stats.docs[0].id)
+            .set({
+          "inService": roomsto[_selectedRoomto] == "Inventory"
+              ? stats.docs[0]['inService'] - int.parse(nos.text)
+              : stats.docs[0]['inService'],
+          "Inventory": roomsto[_selectedRoomto] == "Inventory"
+              ? stats.docs[0]['Inventory'] + int.parse(nos.text)
+              : stats.docs[0]['Inventory'],
+        }, SetOptions(merge: true));
+        setState(() {
+          color.clear();
+          room.clear();
+          roomto.clear();
+          nos.clear();
+          _selectedRoom = 0;
+          _selectedRoomto = 0;
+          _selectedColor = 0;
+        });
+        Fluttertoast.showToast(
+          msg: "Successfully Shared",
+          backgroundColor: Colors.green,
+        );
+      } on FirebaseException catch (e) {
+        print("firebase error $e");
+        Fluttertoast.showToast(
+          msg: "Somthing went wrong!",
+          backgroundColor: Colors.red,
+        );
+      }
+    } else {
+      try {
+        await FirebaseFirestore.instance.collection(DETAILS).add({
+          "room": roomsto[_selectedRoomto] == "Other"
+              ? roomto.text
+              : roomsto[_selectedRoomto],
+          "chairs": {colors[_selectedColor]: int.parse(nos.text)}
+        });
+        await FirebaseFirestore.instance
+            .collection(STATS)
+            .doc(stats.docs[0].id)
+            .set({
+          "inService": roomsto[_selectedRoomto] == "Inventory"
+              ? stats.docs[0]['inService'] - int.parse(nos.text)
+              : stats.docs[0]['inService'],
+          "Inventory": roomsto[_selectedRoomto] == "Inventory"
+              ? stats.docs[0]['Inventory'] + int.parse(nos.text)
+              : stats.docs[0]['Inventory'],
+        }, SetOptions(merge: true));
+        setState(() {
+          color.clear();
+          room.clear();
+          roomto.clear();
+          nos.clear();
+          _selectedRoom = 0;
+          _selectedRoomto = 0;
+          _selectedColor = 0;
+        });
+        Fluttertoast.showToast(
+          msg: "Successfully Shared",
+          backgroundColor: Colors.green,
+        );
+      } on FirebaseException catch (e) {
+        print("firebase error $e");
+        Fluttertoast.showToast(
+          msg: "Somthing went wrong!",
+          backgroundColor: Colors.red,
+        );
+      }
+    }
+  }
+
+  Future deleteChairs() async {
+    var res = await FirebaseFirestore.instance
+        .collection(DETAILS)
+        .where("room",
+            isEqualTo: rooms[_selectedRoom] == "Other"
+                ? room.text
+                : rooms[_selectedRoom])
+        .get();
+    var stats = await FirebaseFirestore.instance
+        .collection(STATS)
+        .where("collegeName", isEqualTo: "RVSCAS")
+        .get();
+    var doc = res.docs;
+    if (doc.isNotEmpty) {
+      Map chairs = doc[0].data()['chairs'];
+      if (chairs.containsKey(colors[_selectedColor])) {
+        if (chairs[colors[_selectedColor]] >= int.parse(nos.text)) {
+          var val = chairs.containsKey(colors[_selectedColor])
+              ? chairs[colors[_selectedColor]] - int.parse(nos.text)
+              : int.parse(nos.text);
+          try {
+            await FirebaseFirestore.instance
+                .collection(DETAILS)
+                .doc(doc[0].id)
+                .set({
+              "chairs": {colors[_selectedColor]: val}
+            }, SetOptions(merge: true));
+            await FirebaseFirestore.instance
+                .collection(STATS)
+                .doc(stats.docs[0].id)
+                .set({
+              "inService": rooms[_selectedRoom] == "Inventory"
+                  ? stats.docs[0]['inService'] + int.parse(nos.text)
+                  : stats.docs[0]['inService'],
+              "Inventory": rooms[_selectedRoom] == "Inventory"
+                  ? stats.docs[0]['Inventory'] - int.parse(nos.text)
+                  : stats.docs[0]['Inventory'],
+            }, SetOptions(merge: true));
+            addChairs();
+          } on FirebaseException catch (e) {
+            print("firebase error $e");
+            Fluttertoast.showToast(
+              msg: "Somthing went wrong!",
+              backgroundColor: Colors.red,
+            );
+          }
+        } else {
+          Fluttertoast.showToast(
+            msg: "Exceeded the available chairs",
+            backgroundColor: Colors.red,
+          );
+        }
+      } else {
+        Fluttertoast.showToast(
+          msg: "${colors[_selectedColor]} is not in ${rooms[_selectedRoom]}",
+          backgroundColor: Colors.red,
+        );
+      }
+    } else {
+      Fluttertoast.showToast(
+        msg: "Somthing went wrong!",
+        backgroundColor: Colors.red,
+      );
+    }
+  }
+
+  Future moveFromInventory() async {}
+
+  Future moveToInventory() async {}
 
   @override
   Widget build(BuildContext context) {
@@ -53,40 +237,57 @@ class _ShareChairsState extends State<ShareChairs> {
       body: SingleChildScrollView(
           child: Container(
         padding: EdgeInsets.all(20),
-        child: Form(
-          child: Column(
-            children: [
-              colorTF(),
-              roomTF(),
-              roomtoTF(),
-              nosTF(),
-              SizedBox(
-              height: 30,
-            ),
-            Container(
-              width: 300,
-              height: 50.0,
-              decoration: BoxDecoration(
-                color: primaryColor,
-                borderRadius: BorderRadius.circular(15)
-              ),
-              child: TextButton(
-                onPressed: () {
-                  
-                },
-                child: Text(
-                  'Share chairs',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                  ),
-                  textAlign: TextAlign.center,
+        child: rooms.isEmpty && roomsto.isEmpty
+            ? SizedBox()
+            : Form(
+                child: Column(
+                  children: [
+                    colorTF(),
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 15),
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "From:",
+                        style: TextStyle(color: primaryColor),
+                      ),
+                    ),
+                    roomTF(),
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 15),
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "To:",
+                        style: TextStyle(color: primaryColor),
+                      ),
+                    ),
+                    roomtoTF(),
+                    nosTF(),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Container(
+                      width: 300,
+                      height: 50.0,
+                      decoration: BoxDecoration(
+                          color: primaryColor,
+                          borderRadius: BorderRadius.circular(15)),
+                      child: TextButton(
+                        onPressed: () {
+                          shareChairs();
+                        },
+                        child: Text(
+                          'Share chairs',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ),
-            ],
-          ),
-        ),
       )),
     );
   }
@@ -346,7 +547,8 @@ class _ShareChairsState extends State<ShareChairs> {
                 ),
               ),
               autovalidateMode: AutovalidateMode.onUserInteraction,
-              validator: RequiredValidator(errorText: "Room name is Required to move"),
+              validator:
+                  RequiredValidator(errorText: "Room name is Required to move"),
             ),
     );
   }

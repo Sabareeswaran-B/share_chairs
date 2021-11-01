@@ -10,8 +10,12 @@ Color solidWhite = Colors.white;
 Color solidGrey = Colors.grey;
 Color primaryColor = Color(0xff800000);
 
+//Firebase
 const String USERS = 'users';
+const String STATS = 'stats';
+const String DETAILS = 'details';
 const ID = 'id';
+const ROOM = 'room';
 
 //Cache constants
 const String USER = "User";

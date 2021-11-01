@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:share_chairs/common/constant.dart';
 
@@ -16,14 +18,219 @@ class _DeleteState extends State<Delete> {
 
   int _selectedRoom = 0;
   int _selectedColor = 0;
-  List<String> rooms = [
-    'Inventory',
-    'VM Hall',
-    'Kalam Hall',
-    'Principal Office',
-    'Other'
-  ];
+  List<String> rooms = [];
   List<String> colors = ['White', 'Sandal', 'Brown', 'Black', 'Other'];
+
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
+
+  Future getData() async {
+    var res = await FirebaseFirestore.instance.collection(DETAILS).get();
+    var doc = res.docs;
+    rooms.addAll(doc.map((val) => val.data()['room']));
+    rooms.removeWhere((element) => element == "broken");
+    rooms.add("Other");
+  }
+
+  Future addChairs() async {
+    var res = await FirebaseFirestore.instance
+        .collection(DETAILS)
+        .where("room", isEqualTo: "broken")
+        .get();
+    var doc = res.docs;
+    if (doc.isNotEmpty) {
+      Map chairs = doc[0].data()['chairs'];
+      var val = chairs.containsKey(colors[_selectedColor])
+          ? int.parse(nos.text) + chairs[colors[_selectedColor]]
+          : int.parse(nos.text);
+      try {
+        await FirebaseFirestore.instance
+            .collection(DETAILS)
+            .doc(doc[0].id)
+            .set({
+          "chairs": {colors[_selectedColor]: val}
+        }, SetOptions(merge: true));
+      } on FirebaseException catch (e) {
+        print("firebase error $e");
+        Fluttertoast.showToast(
+          msg: "Somthing went wrong!",
+          backgroundColor: Colors.red,
+        );
+      }
+    } else {
+      try {
+        await FirebaseFirestore.instance.collection(DETAILS).add({
+          "room": "broken",
+          "chairs": {colors[_selectedColor]: int.parse(nos.text)}
+        });
+      } on FirebaseException catch (e) {
+        print("firebase error $e");
+        Fluttertoast.showToast(
+          msg: "Somthing went wrong!",
+          backgroundColor: Colors.red,
+        );
+      }
+    }
+  }
+
+  markAsBroken() async {
+    var res = await FirebaseFirestore.instance
+        .collection(DETAILS)
+        .where("room",
+            isEqualTo: rooms[_selectedRoom] == "Other"
+                ? room.text
+                : rooms[_selectedRoom])
+        .get();
+    var stats = await FirebaseFirestore.instance
+        .collection(STATS)
+        .where("collegeName", isEqualTo: "RVSCAS")
+        .get();
+    var doc = res.docs;
+    if (doc.isNotEmpty) {
+      Map chairs = doc[0].data()['chairs'];
+      if (chairs.containsKey(colors[_selectedColor])) {
+        if (chairs[colors[_selectedColor]] >= int.parse(nos.text)) {
+          var val = chairs.containsKey(colors[_selectedColor])
+              ? chairs[colors[_selectedColor]] - int.parse(nos.text)
+              : int.parse(nos.text);
+          try {
+            await FirebaseFirestore.instance
+                .collection(DETAILS)
+                .doc(doc[0].id)
+                .set({
+              "chairs": {colors[_selectedColor]: val}
+            }, SetOptions(merge: true));
+            await FirebaseFirestore.instance
+                .collection(STATS)
+                .doc(stats.docs[0].id)
+                .set({
+              // "gross": stats.docs[0]['gross'] - int.parse(nos.text),
+              "inService": rooms[_selectedRoom] == "Inventory"
+                  ? stats.docs[0]['inService']
+                  : stats.docs[0]['inService'] - int.parse(nos.text),
+              "Inventory": rooms[_selectedRoom] == "Inventory"
+                  ? stats.docs[0]['Inventory'] - int.parse(nos.text)
+                  : stats.docs[0]['Inventory'],
+              "broken": stats.docs[0]['broken'] + int.parse(nos.text),
+            }, SetOptions(merge: true));
+            await addChairs();
+            setState(() {
+              color.clear();
+              room.clear();
+              nos.clear();
+              _selectedRoom = 0;
+              _selectedColor = 0;
+            });
+            Fluttertoast.showToast(
+              msg: "Added to broken Successfully",
+              backgroundColor: Colors.green,
+            );
+          } on FirebaseException catch (e) {
+            print("firebase error $e");
+            Fluttertoast.showToast(
+              msg: "Somthing went wrong!",
+              backgroundColor: Colors.red,
+            );
+          }
+        } else {
+          Fluttertoast.showToast(
+            msg: "Exceeded the available chairs",
+            backgroundColor: Colors.red,
+          );
+        }
+      } else {
+        Fluttertoast.showToast(
+          msg: "No chairs available to Delete!",
+          backgroundColor: Colors.red,
+        );
+      }
+    } else {
+      Fluttertoast.showToast(
+        msg: "No chairs available to Delete!",
+        backgroundColor: Colors.red,
+      );
+    }
+  }
+
+  deleteChairs() async {
+    var res = await FirebaseFirestore.instance
+        .collection(DETAILS)
+        .where("room",
+            isEqualTo: rooms[_selectedRoom] == "Other"
+                ? room.text
+                : rooms[_selectedRoom])
+        .get();
+    var stats = await FirebaseFirestore.instance
+        .collection(STATS)
+        .where("collegeName", isEqualTo: "RVSCAS")
+        .get();
+    var doc = res.docs;
+    if (doc.isNotEmpty) {
+      Map chairs = doc[0].data()['chairs'];
+      if (chairs.containsKey(colors[_selectedColor])) {
+        if (chairs[colors[_selectedColor]] >= int.parse(nos.text)) {
+          var val = chairs.containsKey(colors[_selectedColor])
+              ? chairs[colors[_selectedColor]] - int.parse(nos.text)
+              : int.parse(nos.text);
+          try {
+            await FirebaseFirestore.instance
+                .collection(DETAILS)
+                .doc(doc[0].id)
+                .set({
+              "chairs": {colors[_selectedColor]: val}
+            }, SetOptions(merge: true));
+            await FirebaseFirestore.instance
+                .collection(STATS)
+                .doc(stats.docs[0].id)
+                .set({
+              "gross": stats.docs[0]['gross'] - int.parse(nos.text),
+              "inService": rooms[_selectedRoom] == "Inventory"
+                  ? stats.docs[0]['inService']
+                  : stats.docs[0]['inService'] - int.parse(nos.text),
+              "Inventory": rooms[_selectedRoom] == "Inventory"
+                  ? stats.docs[0]['Inventory'] - int.parse(nos.text)
+                  : stats.docs[0]['Inventory'],
+            }, SetOptions(merge: true));
+            setState(() {
+              color.clear();
+              room.clear();
+              nos.clear();
+              _selectedRoom = 0;
+              _selectedColor = 0;
+            });
+            Fluttertoast.showToast(
+              msg: "Deleted Successfully",
+              backgroundColor: Colors.green,
+            );
+          } on FirebaseException catch (e) {
+            print("firebase error $e");
+            Fluttertoast.showToast(
+              msg: "Somthing went wrong!",
+              backgroundColor: Colors.red,
+            );
+          }
+        } else {
+          Fluttertoast.showToast(
+            msg: "Exceeded the available chairs",
+            backgroundColor: Colors.red,
+          );
+        }
+      } else {
+        Fluttertoast.showToast(
+          msg: "No chairs available to Delete!",
+          backgroundColor: Colors.red,
+        );
+      }
+    } else {
+      Fluttertoast.showToast(
+        msg: "No chairs available to Delete!",
+        backgroundColor: Colors.red,
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,39 +251,65 @@ class _DeleteState extends State<Delete> {
       body: SingleChildScrollView(
           child: Container(
         padding: EdgeInsets.all(20),
-        child: Form(
-          child: Column(
-            children: [
-              colorTF(),
-              roomTF(),
-              nosTF(),
-              SizedBox(
-              height: 30,
-            ),
-            Container(
-              width: 300,
-              height: 50.0,
-              decoration: BoxDecoration(
-                color: primaryColor,
-                borderRadius: BorderRadius.circular(15)
-              ),
-              child: TextButton(
-                onPressed: () {
-                  
-                },
-                child: Text(
-                  'Delete chairs',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                  ),
-                  textAlign: TextAlign.center,
+        child: rooms.isEmpty
+            ? SizedBox()
+            : Form(
+                child: Column(
+                  children: [
+                    colorTF(),
+                    roomTF(),
+                    nosTF(),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Container(
+                          width: (MediaQuery.of(context).size.width / 2) - 25,
+                          height: 50.0,
+                          decoration: BoxDecoration(
+                              color: primaryColor,
+                              borderRadius: BorderRadius.circular(15)),
+                          child: TextButton(
+                            onPressed: () async {
+                              markAsBroken();
+                            },
+                            child: Text(
+                              'Mark as broken',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          width: (MediaQuery.of(context).size.width / 2) - 25,
+                          height: 50.0,
+                          decoration: BoxDecoration(
+                              color: primaryColor,
+                              borderRadius: BorderRadius.circular(15)),
+                          child: TextButton(
+                            onPressed: () async {
+                              deleteChairs();
+                            },
+                            child: Text(
+                              'Delete chairs',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
-            ),
-            ],
-          ),
-        ),
       )),
     );
   }
