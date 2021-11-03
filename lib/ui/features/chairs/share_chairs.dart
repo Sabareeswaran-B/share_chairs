@@ -39,7 +39,7 @@ class _ShareChairsState extends State<ShareChairs> {
     var res = await FirebaseFirestore.instance.collection(DETAILS).get();
     var doc = res.docs;
     rooms.addAll(doc.map((val) => val.data()['room']));
-    rooms.removeWhere((element) => element == "broken");
+    rooms.removeWhere((element) => element == "Broken");
     // rooms.add("Other");
     roomsto = rooms;
     roomsto.add("Other");

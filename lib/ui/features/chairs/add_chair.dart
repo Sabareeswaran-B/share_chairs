@@ -36,7 +36,7 @@ class _AddChairsState extends State<AddChairs> {
     var res = await FirebaseFirestore.instance.collection(DETAILS).get();
     var doc = res.docs;
     rooms.addAll(doc.map((val) => val.data()['room']));
-    rooms.removeWhere((element) => element == "broken");
+    rooms.removeWhere((element) => element == "Broken");
     rooms.add("Other");
   }
 

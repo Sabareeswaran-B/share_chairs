@@ -37,14 +37,14 @@ class _DeleteState extends State<Delete> {
     var res = await FirebaseFirestore.instance.collection(DETAILS).get();
     var doc = res.docs;
     rooms.addAll(doc.map((val) => val.data()['room']));
-    rooms.removeWhere((element) => element == "broken");
+    rooms.removeWhere((element) => element == "Broken");
     // rooms.add("Other");
   }
 
   Future addChairs() async {
     var res = await FirebaseFirestore.instance
         .collection(DETAILS)
-        .where("room", isEqualTo: "broken")
+        .where("room", isEqualTo: "Broken")
         .get();
     var doc = res.docs;
     if (doc.isNotEmpty) {
@@ -69,7 +69,7 @@ class _DeleteState extends State<Delete> {
     } else {
       try {
         await FirebaseFirestore.instance.collection(DETAILS).add({
-          "room": "broken",
+          "room": "Broken",
           "chairs": {colors[_selectedColor]: int.parse(nos.text)}
         });
       } on FirebaseException catch (e) {
@@ -120,10 +120,11 @@ class _DeleteState extends State<Delete> {
               "Inventory": rooms[_selectedRoom] == "Inventory"
                   ? stats.docs[0]['Inventory'] - int.parse(nos.text)
                   : stats.docs[0]['Inventory'],
-              "broken": stats.docs[0]['broken'] + int.parse(nos.text),
+              "broken": stats.docs[0]['Broken'] + int.parse(nos.text),
             }, SetOptions(merge: true));
             await addChairs();
             await UserRepository().addtoFeed(
+
               rooms[_selectedRoom] == "Other"
                   ? room.text
                   : rooms[_selectedRoom],
