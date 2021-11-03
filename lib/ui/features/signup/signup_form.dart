@@ -71,7 +71,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 msg: "Signup Failed",
                 gravity: ToastGravity.CENTER,
                 timeInSecForIosWeb: 1,
-                backgroundColor: Colors.red,
+                backgroundColor: primaryColor,
                 textColor: Colors.white,
                 fontSize: 17.0);
           }
@@ -212,10 +212,10 @@ class _SignUpFormState extends State<SignUpForm> {
           maxHeight: 700,
           compressFormat: ImageCompressFormat.jpg,
           androidUiSettings: AndroidUiSettings(
-            toolbarColor: solidGrey,
+            toolbarColor: primaryColor,
             toolbarTitle: "Set an image",
             toolbarWidgetColor: Colors.white,
-            //statusBarColor: solidGrey.withOpacity(0.3),
+            //statusBarColor: primaryColor.withOpacity(0.3),
             backgroundColor: Colors.black,
           )) as File;
       this.setState(() {
@@ -263,7 +263,7 @@ class _SignUpFormState extends State<SignUpForm> {
             //                   Icons.person,
             //                   color: primaryColor,
             //                 ),
-            //                 backgroundColor: Colors.red[100],
+            //                 backgroundColor: primaryColor[100],
             //               )),
             //   ),
             // ),
@@ -324,7 +324,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 text: TextSpan(
                   text: 'Already have an account?',
                   style: TextStyle(
-                    color: solidGrey,
+                    color: primaryColor,
                     fontSize: 16,
                   ),
                   children: <TextSpan>[
@@ -347,35 +347,35 @@ class _SignUpFormState extends State<SignUpForm> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: TextFormField(
-        cursorColor: solidGrey,
+        cursorColor: primaryColor,
         textInputAction: TextInputAction.next,
         keyboardType: TextInputType.emailAddress,
         controller: firstName,
         decoration: InputDecoration(
           labelText: "First Name",
-          labelStyle: TextStyle(color: solidGrey),
+          labelStyle: TextStyle(color: primaryColor),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(10.0)),
             borderSide: BorderSide(
-              color: Color(0xffedeff5),
+              color: primaryColor,
             ),
           ),
           hintText: 'First Name',
           prefixIcon: Icon(
             Icons.star,
-            color: Colors.red,
+            color: primaryColor,
             size: 10,
           ),
           hintStyle: TextStyle(color: Colors.grey),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(10.0)),
             borderSide: BorderSide(
-              color: Color(0xffedeff5),
+              color: primaryColor,
             ),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(10.0)),
-            borderSide: BorderSide(color: solidGrey),
+            borderSide: BorderSide(color: primaryColor),
           ),
         ),
         autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -388,35 +388,35 @@ class _SignUpFormState extends State<SignUpForm> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: TextFormField(
-        cursorColor: solidGrey,
+        cursorColor: primaryColor,
         controller: lastName,
         textInputAction: TextInputAction.next,
         keyboardType: TextInputType.name,
         decoration: InputDecoration(
           labelText: "Last Name",
-          labelStyle: TextStyle(color: solidGrey),
+          labelStyle: TextStyle(color: primaryColor),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(10.0)),
             borderSide: BorderSide(
-              color: Color(0xffedeff5),
+              color: primaryColor,
             ),
           ),
           hintText: 'Last Name',
           prefixIcon: Icon(
             Icons.star,
-            color: Colors.red,
+            color: primaryColor,
             size: 10,
           ),
           hintStyle: TextStyle(color: Colors.grey),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(10.0)),
             borderSide: BorderSide(
-              color: Color(0xffedeff5),
+              color: primaryColor,
             ),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(10.0)),
-            borderSide: BorderSide(color: solidGrey),
+            borderSide: BorderSide(color: primaryColor),
           ),
         ),
         autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -462,41 +462,41 @@ class _SignUpFormState extends State<SignUpForm> {
           _selectDate(context);
         },
         controller: dob,
-        cursorColor: solidGrey,
+        cursorColor: primaryColor,
         textInputAction: TextInputAction.next,
         readOnly: true,
         decoration: InputDecoration(
           labelText: "Date of Birth",
-          labelStyle: TextStyle(color: solidGrey),
+          labelStyle: TextStyle(color: primaryColor),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(10.0)),
             borderSide: BorderSide(
-              color: Color(0xffedeff5),
+              color: primaryColor,
             ),
           ),
           hintText: 'Date of Birth',
           prefixIcon: Icon(
             Icons.star,
-            color: Colors.red,
+            color: primaryColor,
             size: 10,
           ),
           suffixIcon: Padding(
             padding: const EdgeInsets.only(right: 20.0),
             child: Icon(
               Icons.date_range_outlined,
-              color: solidGrey,
+              color: primaryColor,
             ),
           ),
           hintStyle: TextStyle(color: Colors.grey),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(10.0)),
             borderSide: BorderSide(
-              color: Color(0xffedeff5),
+              color: primaryColor,
             ),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(10.0)),
-            borderSide: BorderSide(color: Color(0xffedeff5)),
+            borderSide: BorderSide(color: primaryColor),
           ),
         ),
         autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -512,28 +512,29 @@ class _SignUpFormState extends State<SignUpForm> {
           textInputAction: TextInputAction.next,
           keyboardType: TextInputType.emailAddress,
           controller: username,
+          cursorColor: primaryColor,
           // onSaved: (value) => username = value,
           decoration: InputDecoration(
             labelText: "Username",
-            labelStyle: TextStyle(color: solidGrey),
+            labelStyle: TextStyle(color: primaryColor),
             hintText: 'Username',
             prefixIcon: Icon(
               Icons.star,
-              color: Colors.red,
+              color: primaryColor,
               size: 10,
             ),
             hintStyle: TextStyle(color: Colors.grey),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(12.0)),
-              borderSide: BorderSide(color: Color(0xffedeff5), width: 1),
+              borderSide: BorderSide(color: primaryColor, width: 1),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(12.0)),
-              borderSide: BorderSide(color: Color(0xffedeff5), width: 1.5),
+              borderSide: BorderSide(color: primaryColor, width: 1.5),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(10.0)),
-              borderSide: BorderSide(color: solidGrey),
+              borderSide: BorderSide(color: primaryColor),
             ),
           ),
           autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -551,34 +552,34 @@ class _SignUpFormState extends State<SignUpForm> {
       child: TextFormField(
         //onSaved: (value) => email = value,
         controller: email,
-        cursorColor: solidGrey,
+        cursorColor: primaryColor,
         textInputAction: TextInputAction.next,
         keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
           labelText: "E-mail",
-          labelStyle: TextStyle(color: solidGrey),
+          labelStyle: TextStyle(color: primaryColor),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(10.0)),
             borderSide: BorderSide(
-              color: Color(0xffedeff5),
+              color: primaryColor,
             ),
           ),
           hintText: 'E-mail',
           prefixIcon: Icon(
             Icons.star,
-            color: Colors.red,
+            color: primaryColor,
             size: 10,
           ),
           hintStyle: TextStyle(color: Colors.grey),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(10.0)),
             borderSide: BorderSide(
-              color: Color(0xffedeff5),
+              color: primaryColor,
             ),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(10.0)),
-            borderSide: BorderSide(color: solidGrey),
+            borderSide: BorderSide(color: primaryColor),
           ),
         ),
         autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -596,16 +597,16 @@ class _SignUpFormState extends State<SignUpForm> {
       child: TextFormField(
         controller: password,
         // onSaved: (value) => password = value,
-        cursorColor: solidGrey,
+        cursorColor: primaryColor,
         textInputAction: TextInputAction.done,
         obscureText: _obscurePassword,
         decoration: InputDecoration(
           labelText: "Password",
-          labelStyle: TextStyle(color: solidGrey),
+          labelStyle: TextStyle(color: primaryColor),
           suffixIcon: IconButton(
             icon: Icon(
               _obscurePassword ? Icons.visibility_off : Icons.visibility,
-              color: _obscurePassword ? Colors.grey : solidGrey,
+              color: _obscurePassword ? Colors.grey : primaryColor,
             ),
             onPressed: () {
               if (!mounted) return;
@@ -615,25 +616,25 @@ class _SignUpFormState extends State<SignUpForm> {
           hintText: 'Password',
           prefixIcon: Icon(
             Icons.star,
-            color: Colors.red,
+            color: primaryColor,
             size: 10,
           ),
           hintStyle: TextStyle(color: Colors.grey),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(10.0)),
             borderSide: BorderSide(
-              color: Color(0xffedeff5),
+              color: primaryColor,
             ),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(10.0)),
             borderSide: BorderSide(
-              color: Color(0xffedeff5),
+              color: primaryColor,
             ),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(10.0)),
-            borderSide: BorderSide(color: solidGrey),
+            borderSide: BorderSide(color: primaryColor),
           ),
         ),
         autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -654,16 +655,16 @@ class _SignUpFormState extends State<SignUpForm> {
       child: TextFormField(
         controller: confirmpassword,
         // onSaved: (value) => confirmpassword = value,
-        cursorColor: solidGrey,
+        cursorColor: primaryColor,
         textInputAction: TextInputAction.done,
         obscureText: _obscureConfirmPassword,
         decoration: InputDecoration(
           labelText: "Confirm Password",
-          labelStyle: TextStyle(color: solidGrey),
+          labelStyle: TextStyle(color: primaryColor),
           suffixIcon: IconButton(
             icon: Icon(
               _obscureConfirmPassword ? Icons.visibility_off : Icons.visibility,
-              color: _obscureConfirmPassword ? Colors.grey : solidGrey,
+              color: _obscureConfirmPassword ? Colors.grey : primaryColor,
             ),
             onPressed: () {
               if (!mounted) return;
@@ -674,25 +675,25 @@ class _SignUpFormState extends State<SignUpForm> {
           hintText: 'Confirm Password',
           prefixIcon: Icon(
             Icons.star,
-            color: Colors.red,
+            color: primaryColor,
             size: 10,
           ),
           hintStyle: TextStyle(color: Colors.grey),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(10.0)),
             borderSide: BorderSide(
-              color: Color(0xffedeff5),
+              color: primaryColor,
             ),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(10.0)),
             borderSide: BorderSide(
-              color: Color(0xffedeff5),
+              color: primaryColor,
             ),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(10.0)),
-            borderSide: BorderSide(color: solidGrey),
+            borderSide: BorderSide(color: primaryColor),
           ),
         ),
         autovalidateMode: AutovalidateMode.onUserInteraction,

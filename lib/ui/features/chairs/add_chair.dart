@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:share_chairs/common/constant.dart';
@@ -15,11 +16,14 @@ class _AddChairsState extends State<AddChairs> {
   TextEditingController nos = TextEditingController();
   TextEditingController room = TextEditingController();
   TextEditingController color = TextEditingController();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   int _selectedRoom = 0;
   int _selectedColor = 0;
   List<String> rooms = [];
   List<String> colors = ['White', 'Sandal', 'Brown', 'Black', 'Other'];
+
+  bool addClicked = false;
 
   @override
   void initState() {
@@ -78,6 +82,7 @@ class _AddChairsState extends State<AddChairs> {
           nos.clear();
           _selectedRoom = 0;
           _selectedColor = 0;
+          addClicked = false;
         });
         Fluttertoast.showToast(
           msg: "Successfully Added",
@@ -135,9 +140,18 @@ class _AddChairsState extends State<AddChairs> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: backgroundColor,
+      key: _scaffoldKey,
       appBar: AppBar(
         backgroundColor: solidWhite,
-        leading: null,
+        leading: IconButton(
+          onPressed: () {
+            _scaffoldKey.currentState!.openDrawer();
+          },
+          icon: Icon(
+            Icons.menu,
+            color: primaryColor,
+          ),
+        ),
         centerTitle: true,
         title: Text(
           "Add Chairs",
@@ -147,6 +161,7 @@ class _AddChairsState extends State<AddChairs> {
           ),
         ),
       ),
+      drawer: Drawer(),
       body: SingleChildScrollView(
           child: Container(
         padding: EdgeInsets.all(20),
@@ -165,20 +180,32 @@ class _AddChairsState extends State<AddChairs> {
                       width: 300,
                       height: 50.0,
                       decoration: BoxDecoration(
-                          color: primaryColor,
+                          color: addClicked ? Colors.grey[400] : primaryColor,
                           borderRadius: BorderRadius.circular(15)),
                       child: TextButton(
-                        onPressed: () async {
-                          addChairs();
-                        },
-                        child: Text(
-                          'Add new chairs',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
+                        onPressed: addClicked
+                            ? null
+                            : () async {
+                                setState(() {
+                                  addClicked = true;
+                                });
+                                addChairs();
+                              },
+                        child: addClicked
+                            ? Center(
+                                child: SpinKitWave(
+                                  color: primaryColor,
+                                  size: 50,
+                                ),
+                              )
+                            : Text(
+                                'Add new chairs',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
                       ),
                     ),
                   ],

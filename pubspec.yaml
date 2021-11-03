@@ -30,6 +30,8 @@ dependencies:
 
   form_field_validator: ^1.1.0
 
+  font_awesome_flutter: ^9.1.0
+
   image_picker: ^0.8.3+1
 
   image_cropper: ^1.4.0
@@ -71,11 +73,12 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.9.2
 
-# flutter_icons:
-#   android: "launcher_icon"
-#   ios: true
-#   image_path: "assets/images/launch_logo.png"
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/icons/share_chairs.png"
 
 
 flutter:

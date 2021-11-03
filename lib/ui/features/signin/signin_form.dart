@@ -5,6 +5,7 @@ import 'package:form_field_validator/form_field_validator.dart';
 import 'package:share_chairs/common/constant.dart';
 import 'package:share_chairs/ui/features/bottomnavbar.dart';
 import 'package:share_chairs/ui/features/signin/bloc/signin_bloc.dart';
+import 'package:share_chairs/ui/features/signin/forgot_pw.dart';
 import 'package:share_chairs/ui/features/signup/signup_form.dart';
 
 class SignIn extends StatelessWidget {
@@ -49,7 +50,9 @@ class _SignInFormState extends State<SignInForm> {
           );
         } else if (state is SigninSuccess) {
           Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (builder) => BottomNavBar()),
+              MaterialPageRoute(
+                builder: (builder) => BottomNavBar(),
+              ),
               (route) => false);
         } else if (state is SigninFailure) {
           // Object error = state.props[0];
@@ -57,7 +60,7 @@ class _SignInFormState extends State<SignInForm> {
               msg: "Signin Failed",
               gravity: ToastGravity.CENTER,
               timeInSecForIosWeb: 1,
-              backgroundColor: Colors.red,
+              backgroundColor: primaryColor,
               textColor: Colors.white,
               fontSize: 17.0);
         }
@@ -134,9 +137,7 @@ class _SignInFormState extends State<SignInForm> {
               width: 250,
               height: 50.0,
               decoration: BoxDecoration(
-                color: primaryColor,
-                borderRadius: BorderRadius.circular(15)
-              ),
+                  color: primaryColor, borderRadius: BorderRadius.circular(15)),
               child: TextButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
@@ -159,12 +160,12 @@ class _SignInFormState extends State<SignInForm> {
             ),
             TextButton(
               onPressed: () {
-                // Navigator.push(
-                //   context,
-                //   new MaterialPageRoute(
-                //     builder: (context) => ForgotPassword(),
-                //   ),
-                // );
+                Navigator.push(
+                  context,
+                  new MaterialPageRoute(
+                    builder: (context) => ForgotPassword(),
+                  ),
+                );
                 // Navigator.pushNamed(context, "/forgotpassword");
               },
               child: Text(
@@ -214,14 +215,14 @@ class _SignInFormState extends State<SignInForm> {
   Widget passwordTextField() {
     return TextFormField(
       onSaved: (value) => password = value!,
-      cursorColor: Colors.grey,
+      cursorColor: primaryColor,
       textInputAction: TextInputAction.done,
       obscureText: _obscureTextPassword,
       decoration: InputDecoration(
         suffixIcon: IconButton(
           icon: Icon(
             _obscureTextPassword ? Icons.visibility_off : Icons.visibility,
-            color: _obscureTextPassword ? Colors.grey : Colors.grey,
+            color: _obscureTextPassword ? solidGrey : primaryColor,
           ),
           onPressed: () {
             setState(() => _obscureTextPassword = !_obscureTextPassword);
@@ -230,24 +231,24 @@ class _SignInFormState extends State<SignInForm> {
         hintText: 'Password',
         prefixIcon: Icon(
           Icons.lock,
-          color: Colors.grey,
+          color: primaryColor,
         ),
-        hintStyle: TextStyle(color: Colors.grey),
+        hintStyle: TextStyle(color: primaryColor),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(10.0)),
           borderSide: BorderSide(
-            color: Color(0xffedeff5),
+            color: primaryColor,
           ),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(10.0)),
           borderSide: BorderSide(
-            color: Color(0xffedeff5),
+            color: primaryColor,
           ),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(10.0)),
-          borderSide: BorderSide(color: Colors.grey),
+          borderSide: BorderSide(color: primaryColor),
         ),
       ),
       autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -262,31 +263,31 @@ class _SignInFormState extends State<SignInForm> {
   Widget emailTextField() {
     return TextFormField(
       onSaved: (value) => email = value!,
-      cursorColor: Colors.grey,
+      cursorColor: primaryColor,
       textInputAction: TextInputAction.next,
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
         border: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(10.0)),
           borderSide: BorderSide(
-            color: Color(0xffedeff5),
+            color: primaryColor,
           ),
         ),
         hintText: 'Email',
         prefixIcon: Icon(
           Icons.email,
-          color: Colors.grey,
+          color: primaryColor,
         ),
-        hintStyle: TextStyle(color: Colors.grey),
+        hintStyle: TextStyle(color: primaryColor),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(10.0)),
           borderSide: BorderSide(
-            color: Color(0xffedeff5),
+            color: primaryColor,
           ),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(10.0)),
-          borderSide: BorderSide(color: Colors.grey),
+          borderSide: BorderSide(color: primaryColor),
         ),
       ),
       autovalidateMode: AutovalidateMode.onUserInteraction,

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:share_chairs/common/constant.dart';
@@ -15,11 +16,16 @@ class _DeleteState extends State<Delete> {
   TextEditingController nos = TextEditingController();
   TextEditingController room = TextEditingController();
   TextEditingController color = TextEditingController();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
 
   int _selectedRoom = 0;
   int _selectedColor = 0;
   List<String> rooms = [];
   List<String> colors = ['White', 'Sandal', 'Brown', 'Black', 'Other'];
+
+  bool brokenClicked = false;
+  bool deleteClicked = false;
 
   @override
   void initState() {
@@ -123,6 +129,8 @@ class _DeleteState extends State<Delete> {
               nos.clear();
               _selectedRoom = 0;
               _selectedColor = 0;
+              brokenClicked = false;
+              deleteClicked = false;
             });
             Fluttertoast.showToast(
               msg: "Added to broken Successfully",
@@ -143,13 +151,13 @@ class _DeleteState extends State<Delete> {
         }
       } else {
         Fluttertoast.showToast(
-          msg: "No chairs available to Delete!",
+          msg: "No chairs available to Mark!",
           backgroundColor: Colors.red,
         );
       }
     } else {
       Fluttertoast.showToast(
-        msg: "No chairs available to Delete!",
+        msg: "No chairs available to Mark!",
         backgroundColor: Colors.red,
       );
     }
@@ -200,6 +208,8 @@ class _DeleteState extends State<Delete> {
               nos.clear();
               _selectedRoom = 0;
               _selectedColor = 0;
+              brokenClicked = false;
+              deleteClicked = false;
             });
             Fluttertoast.showToast(
               msg: "Deleted Successfully",
@@ -235,10 +245,19 @@ class _DeleteState extends State<Delete> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: backgroundColor,
       appBar: AppBar(
         backgroundColor: solidWhite,
-        leading: null,
+        leading: IconButton(
+          onPressed: () {
+            _scaffoldKey.currentState!.openDrawer();
+          },
+          icon: Icon(
+            Icons.menu,
+            color: primaryColor,
+          ),
+        ),
         centerTitle: true,
         title: Text(
           "Delete Chairs",
@@ -248,6 +267,7 @@ class _DeleteState extends State<Delete> {
           ),
         ),
       ),
+      drawer: Drawer(),
       body: SingleChildScrollView(
           child: Container(
         padding: EdgeInsets.all(20),
@@ -269,40 +289,68 @@ class _DeleteState extends State<Delete> {
                           width: (MediaQuery.of(context).size.width / 2) - 25,
                           height: 50.0,
                           decoration: BoxDecoration(
-                              color: primaryColor,
+                              color: brokenClicked
+                                  ? Colors.grey[400]
+                                  : primaryColor,
                               borderRadius: BorderRadius.circular(15)),
                           child: TextButton(
-                            onPressed: () async {
-                              markAsBroken();
-                            },
-                            child: Text(
-                              'Mark as broken',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
+                            onPressed: !brokenClicked && !deleteClicked
+                                ? () async {
+                                    setState(() {
+                                      brokenClicked = true;
+                                    });
+                                    markAsBroken();
+                                  }
+                                : null,
+                            child: brokenClicked
+                                ? Center(
+                                    child: SpinKitWave(
+                                      color: primaryColor,
+                                      size: 50,
+                                    ),
+                                  )
+                                : Text(
+                                    'Mark as broken',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
                           ),
                         ),
                         Container(
                           width: (MediaQuery.of(context).size.width / 2) - 25,
                           height: 50.0,
                           decoration: BoxDecoration(
-                              color: primaryColor,
+                              color: deleteClicked
+                                  ? Colors.grey[400]
+                                  : primaryColor,
                               borderRadius: BorderRadius.circular(15)),
                           child: TextButton(
-                            onPressed: () async {
-                              deleteChairs();
-                            },
-                            child: Text(
-                              'Delete chairs',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
+                            onPressed: !brokenClicked && !deleteClicked
+                                ? () async {
+                                    setState(() {
+                                      deleteClicked = true;
+                                    });
+                                    deleteChairs();
+                                  }
+                                : null,
+                            child: deleteClicked
+                                ? Center(
+                                    child: SpinKitWave(
+                                      color: primaryColor,
+                                      size: 50,
+                                    ),
+                                  )
+                                : Text(
+                                    'Delete chairs',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
                           ),
                         ),
                       ],

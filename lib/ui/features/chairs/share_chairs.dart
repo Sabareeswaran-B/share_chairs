@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:share_chairs/common/constant.dart';
@@ -16,6 +17,8 @@ class _ShareChairsState extends State<ShareChairs> {
   TextEditingController room = TextEditingController();
   TextEditingController roomto = TextEditingController();
   TextEditingController color = TextEditingController();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
 
   int _selectedRoom = 0;
   int _selectedRoomto = 1;
@@ -23,6 +26,8 @@ class _ShareChairsState extends State<ShareChairs> {
   List<String> rooms = [];
   List<String> roomsto = [];
   List<String> colors = ['White', 'Sandal', 'Brown', 'Black', 'Other'];
+
+  bool shareClicked = false;
 
   @override
   void initState() {
@@ -94,6 +99,7 @@ class _ShareChairsState extends State<ShareChairs> {
           _selectedRoom = 0;
           _selectedRoomto = 0;
           _selectedColor = 0;
+          shareClicked = false;
         });
         Fluttertoast.showToast(
           msg: "Successfully Shared",
@@ -214,17 +220,23 @@ class _ShareChairsState extends State<ShareChairs> {
     }
   }
 
-  Future moveFromInventory() async {}
-
-  Future moveToInventory() async {}
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: backgroundColor,
       appBar: AppBar(
         backgroundColor: solidWhite,
-        leading: null,
+        leading: IconButton(
+          onPressed: () {
+            _scaffoldKey.currentState!.openDrawer();
+          },
+          icon: Icon(
+            Icons.menu,
+            color: primaryColor,
+          ),
+        ),
         centerTitle: true,
         title: Text(
           "Share Chairs",
@@ -234,6 +246,7 @@ class _ShareChairsState extends State<ShareChairs> {
           ),
         ),
       ),
+      drawer: Drawer(),
       body: SingleChildScrollView(
           child: Container(
         padding: EdgeInsets.all(20),
@@ -269,20 +282,32 @@ class _ShareChairsState extends State<ShareChairs> {
                       width: 300,
                       height: 50.0,
                       decoration: BoxDecoration(
-                          color: primaryColor,
+                          color: shareClicked ? Colors.grey[400] : primaryColor,
                           borderRadius: BorderRadius.circular(15)),
                       child: TextButton(
-                        onPressed: () {
-                          shareChairs();
-                        },
-                        child: Text(
-                          'Share chairs',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
+                        onPressed: shareClicked
+                            ? null
+                            : () {
+                                setState(() {
+                                  shareClicked = true;
+                                });
+                                shareChairs();
+                              },
+                        child: shareClicked
+                            ? Center(
+                                child: SpinKitWave(
+                                  color: primaryColor,
+                                  size: 50,
+                                ),
+                              )
+                            : Text(
+                                'Share chairs',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
                       ),
                     ),
                   ],

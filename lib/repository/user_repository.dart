@@ -8,6 +8,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:firebase_storage/firebase_storage.dart';
 import 'package:share_chairs/common/constant.dart';
+import 'package:share_chairs/common/storage_manager.dart';
 
 class UserRepository {
   FirebaseAuth auth = FirebaseAuth.instance;
@@ -27,11 +28,17 @@ class UserRepository {
             .where(ID, isEqualTo: user.uid)
             .get();
         final List<DocumentSnapshot> documents = result.docs;
-        String source = jsonEncode(documents[0].data());
+        var userData = documents[0].data() as Map;
+        String source = jsonEncode(userData);
 
         APICacheDBModel cacheDBModel =
             new APICacheDBModel(key: USER, syncData: source);
         await APICacheManager().addCacheData(cacheDBModel);
+        StorageManager.saveData("email", userData['email']);
+        StorageManager.saveData("userName", userData['userName']);
+        StorageManager.saveData("firstName", userData['firstName']);
+        StorageManager.saveData("lastName", userData['lastName']);
+        StorageManager.saveData("role", userData['role']);
         // await getCurrentUser();
         // FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
         //      firebaseMessaging.getToken().then((value) {
@@ -104,6 +111,7 @@ class UserRepository {
 
   Future signOut() async {
     APICacheManager().deleteCache(USER);
+    StorageManager.clear();
     await auth.signOut();
   }
 }

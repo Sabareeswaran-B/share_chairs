@@ -27,15 +27,13 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Share Chairs',
       theme: ThemeData(primaryColor: Color(0xff800000)),
-      home: Home(title: 'Share Chairs'),
+      home: Home(),
     );
   }
 }
 
 class Home extends StatefulWidget {
-  Home({Key? key, required this.title}) : super(key: key);
-
-  final String title;
+  Home({Key? key}) : super(key: key);
 
   @override
   _HomeState createState() => _HomeState();

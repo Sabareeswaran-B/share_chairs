@@ -9,13 +9,24 @@ class ProfileMain extends StatefulWidget {
 }
 
 class _ProfileMainState extends State<ProfileMain> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: backgroundColor,
       appBar: AppBar(
         backgroundColor: solidWhite,
-        leading: null,
+        leading: IconButton(
+          onPressed: () {
+            _scaffoldKey.currentState!.openDrawer();
+          },
+          icon: Icon(
+            Icons.menu,
+            color: primaryColor,
+          ),
+        ),
         centerTitle: true,
         title: Text(
           "Profile",
@@ -25,6 +36,7 @@ class _ProfileMainState extends State<ProfileMain> {
           ),
         ),
       ),
+      drawer: Drawer(),
       body: Container(),
     );
   }
