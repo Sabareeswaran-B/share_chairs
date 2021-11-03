@@ -114,6 +114,15 @@ class _BottomNavBarState extends State<BottomNavBar> {
                                 color: _selectedIndex == 0
                                     ? primaryColor
                                     : solidWhite,
+                                boxShadow: _selectedIndex == 0
+                                    ? [
+                                        BoxShadow(
+                                          color: Colors.grey.shade300,
+                                          spreadRadius: 2,
+                                          blurRadius: 2,
+                                        )
+                                      ]
+                                    : [],
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(15)),
                               ),
@@ -160,6 +169,15 @@ class _BottomNavBarState extends State<BottomNavBar> {
                                 color: _selectedIndex == 1
                                     ? primaryColor
                                     : solidWhite,
+                                boxShadow: _selectedIndex == 1
+                                    ? [
+                                        BoxShadow(
+                                          color: Colors.grey.shade300,
+                                          spreadRadius: 2,
+                                          blurRadius: 2,
+                                        )
+                                      ]
+                                    : [],
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(15)),
                               ),
@@ -206,6 +224,15 @@ class _BottomNavBarState extends State<BottomNavBar> {
                                 color: _selectedIndex == 2
                                     ? primaryColor
                                     : solidWhite,
+                                boxShadow: _selectedIndex == 2
+                                    ? [
+                                        BoxShadow(
+                                          color: Colors.grey.shade300,
+                                          spreadRadius: 2,
+                                          blurRadius: 2,
+                                        )
+                                      ]
+                                    : [],
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(15)),
                               ),
@@ -252,6 +279,15 @@ class _BottomNavBarState extends State<BottomNavBar> {
                                 color: _selectedIndex == 3
                                     ? primaryColor
                                     : solidWhite,
+                                boxShadow: _selectedIndex == 3
+                                    ? [
+                                        BoxShadow(
+                                          color: Colors.grey.shade300,
+                                          spreadRadius: 2,
+                                          blurRadius: 2,
+                                        )
+                                      ]
+                                    : [],
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(15)),
                               ),
@@ -298,6 +334,15 @@ class _BottomNavBarState extends State<BottomNavBar> {
                                 color: _selectedIndex == 4
                                     ? primaryColor
                                     : solidWhite,
+                                boxShadow: _selectedIndex == 4
+                                    ? [
+                                        BoxShadow(
+                                          color: Colors.grey.shade300,
+                                          spreadRadius: 2,
+                                          blurRadius: 2,
+                                        )
+                                      ]
+                                    : [],
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(15)),
                               ),

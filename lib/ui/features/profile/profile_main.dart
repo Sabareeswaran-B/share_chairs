@@ -18,15 +18,7 @@ class _ProfileMainState extends State<ProfileMain> {
       backgroundColor: backgroundColor,
       appBar: AppBar(
         backgroundColor: solidWhite,
-        leading: IconButton(
-          onPressed: () {
-            _scaffoldKey.currentState!.openDrawer();
-          },
-          icon: Icon(
-            Icons.menu,
-            color: primaryColor,
-          ),
-        ),
+        leading: null,
         centerTitle: true,
         title: Text(
           "Profile",
@@ -36,7 +28,7 @@ class _ProfileMainState extends State<ProfileMain> {
           ),
         ),
       ),
-      drawer: Drawer(),
+      // drawer: Drawer(),
       body: Container(),
     );
   }

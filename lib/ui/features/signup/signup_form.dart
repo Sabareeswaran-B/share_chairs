@@ -291,7 +291,15 @@ class _SignUpFormState extends State<SignUpForm> {
               height: 50.0,
               decoration: BoxDecoration(
                 color: primaryColor,
-                borderRadius: BorderRadius.circular(15)
+                borderRadius: BorderRadius.circular(15),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.shade300,
+                    spreadRadius: 2,
+                    blurRadius: 2,
+                    offset: Offset(3, 3),
+                  ),
+                ],
               ),
               child: TextButton(
                 onPressed: () {

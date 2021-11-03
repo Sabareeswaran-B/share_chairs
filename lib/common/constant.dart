@@ -14,6 +14,7 @@ Color primaryColor = Color(0xff800000);
 const String USERS = 'users';
 const String STATS = 'stats';
 const String DETAILS = 'details';
+const String NEWSFEED = 'newsFeed';
 const ID = 'id';
 const ROOM = 'room';
 

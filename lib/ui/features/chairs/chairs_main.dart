@@ -2,8 +2,10 @@ import 'dart:ui';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:share_chairs/common/constant.dart';
+import 'package:share_chairs/ui/features/news_feed/newsfeed.dart';
 
 class ChairsMain extends StatefulWidget {
   const ChairsMain({Key? key}) : super(key: key);
@@ -155,13 +157,16 @@ class _ChairsMainState extends State<ChairsMain> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: primaryColor,
-        leading: IconButton(
-          onPressed: () {
-            _scaffoldKey.currentState!.openDrawer();
-          },
-          icon: Icon(Icons.menu),
-        ),
+        leading: null,
         centerTitle: true,
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (builder) => NewsFeed()));
+              },
+              icon: Icon(FontAwesomeIcons.solidNewspaper, color: solidWhite,))
+        ],
         title: Text(
           "Statistics",
           style: TextStyle(
@@ -170,9 +175,9 @@ class _ChairsMainState extends State<ChairsMain> {
           ),
         ),
       ),
-      drawer: Drawer(
-        // child: MenuBar(),
-      ),
+      // drawer: Drawer(
+      //   child: MenuBar(),
+      // ),
       body: SmartRefresher(
         controller: _refreshController,
         enablePullDown: true,

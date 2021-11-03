@@ -4,6 +4,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:share_chairs/common/constant.dart';
+import 'package:share_chairs/repository/user_repository.dart';
 
 class Delete extends StatefulWidget {
   const Delete({Key? key}) : super(key: key);
@@ -18,11 +19,10 @@ class _DeleteState extends State<Delete> {
   TextEditingController color = TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-
   int _selectedRoom = 0;
   int _selectedColor = 0;
   List<String> rooms = [];
-  List<String> colors = ['White', 'Sandal', 'Brown', 'Black', 'Other'];
+  List<String> colors = ['White', 'Sandal', 'Brown', 'Black'];
 
   bool brokenClicked = false;
   bool deleteClicked = false;
@@ -38,7 +38,7 @@ class _DeleteState extends State<Delete> {
     var doc = res.docs;
     rooms.addAll(doc.map((val) => val.data()['room']));
     rooms.removeWhere((element) => element == "broken");
-    rooms.add("Other");
+    // rooms.add("Other");
   }
 
   Future addChairs() async {
@@ -123,6 +123,15 @@ class _DeleteState extends State<Delete> {
               "broken": stats.docs[0]['broken'] + int.parse(nos.text),
             }, SetOptions(merge: true));
             await addChairs();
+            await UserRepository().addtoFeed(
+              rooms[_selectedRoom] == "Other"
+                  ? room.text
+                  : rooms[_selectedRoom],
+              "Broken",
+              colors[_selectedColor],
+              "broken",
+              int.parse(nos.text),
+            );
             setState(() {
               color.clear();
               room.clear();
@@ -202,6 +211,15 @@ class _DeleteState extends State<Delete> {
                   ? stats.docs[0]['Inventory'] - int.parse(nos.text)
                   : stats.docs[0]['Inventory'],
             }, SetOptions(merge: true));
+            await UserRepository().addtoFeed(
+              rooms[_selectedRoom] == "Other"
+                  ? room.text
+                  : rooms[_selectedRoom],
+              "waste",
+              colors[_selectedColor],
+              "deleted",
+              int.parse(nos.text),
+            );
             setState(() {
               color.clear();
               room.clear();
@@ -249,15 +267,7 @@ class _DeleteState extends State<Delete> {
       backgroundColor: backgroundColor,
       appBar: AppBar(
         backgroundColor: solidWhite,
-        leading: IconButton(
-          onPressed: () {
-            _scaffoldKey.currentState!.openDrawer();
-          },
-          icon: Icon(
-            Icons.menu,
-            color: primaryColor,
-          ),
-        ),
+        leading: null,
         centerTitle: true,
         title: Text(
           "Delete Chairs",
@@ -267,7 +277,7 @@ class _DeleteState extends State<Delete> {
           ),
         ),
       ),
-      drawer: Drawer(),
+      // drawer: Drawer(),
       body: SingleChildScrollView(
           child: Container(
         padding: EdgeInsets.all(20),
@@ -289,10 +299,18 @@ class _DeleteState extends State<Delete> {
                           width: (MediaQuery.of(context).size.width / 2) - 25,
                           height: 50.0,
                           decoration: BoxDecoration(
-                              color: brokenClicked
-                                  ? Colors.grey[400]
-                                  : primaryColor,
-                              borderRadius: BorderRadius.circular(15)),
+                            color:
+                                brokenClicked ? Colors.grey[400] : primaryColor,
+                            borderRadius: BorderRadius.circular(15),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.shade300,
+                                spreadRadius: 2,
+                                blurRadius: 2,
+                                offset: Offset(3, 3),
+                              ),
+                            ],
+                          ),
                           child: TextButton(
                             onPressed: !brokenClicked && !deleteClicked
                                 ? () async {
@@ -323,10 +341,18 @@ class _DeleteState extends State<Delete> {
                           width: (MediaQuery.of(context).size.width / 2) - 25,
                           height: 50.0,
                           decoration: BoxDecoration(
-                              color: deleteClicked
-                                  ? Colors.grey[400]
-                                  : primaryColor,
-                              borderRadius: BorderRadius.circular(15)),
+                            color:
+                                deleteClicked ? Colors.grey[400] : primaryColor,
+                            borderRadius: BorderRadius.circular(15),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.shade300,
+                                spreadRadius: 2,
+                                blurRadius: 2,
+                                offset: Offset(3, 3),
+                              ),
+                            ],
+                          ),
                           child: TextButton(
                             onPressed: !brokenClicked && !deleteClicked
                                 ? () async {

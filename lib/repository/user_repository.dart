@@ -114,4 +114,24 @@ class UserRepository {
     StorageManager.clear();
     await auth.signOut();
   }
+
+  Future addtoFeed(
+      String from, String to, String color, String action, int nos) async {
+    DateTime dateTime = DateTime.now();
+    String firstName = await StorageManager.readData("firstName");
+    String lastName = await StorageManager.readData("lastName");
+    try {
+      FirebaseFirestore.instance.collection(NEWSFEED).add({
+        "to": to,
+        "from": from,
+        "action": action,
+        "color": color,
+        "createdAt": dateTime.toString(),
+        "nos": nos,
+        "createdBy": firstName + " " + lastName,
+      });
+    } on FirebaseAuthException catch (e) {
+      print(e);
+    }
+  }
 }

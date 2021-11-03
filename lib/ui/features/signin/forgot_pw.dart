@@ -15,7 +15,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   late User user;
 
   void _userverify() async {
-      // if (user != null) {
+    // if (user != null) {
     try {
       await _auth.sendPasswordResetEmail(email: _email.text);
       return await DialogHelper.exit(context);
@@ -97,9 +97,18 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 height: 45,
                 width: 200,
                 decoration: new BoxDecoration(
-                    // gradient: blueGradient,
-                    color: primaryColor,
-                    borderRadius: BorderRadius.all(Radius.circular(25))),
+                  // gradient: blueGradient,
+                  color: primaryColor,
+                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.shade300,
+                      spreadRadius: 2,
+                      blurRadius: 2,
+                      offset: Offset(3, 3),
+                    ),
+                  ],
+                ),
                 margin: EdgeInsets.only(top: 50, bottom: 10),
                 child: TextButton(
                   onPressed: () async {

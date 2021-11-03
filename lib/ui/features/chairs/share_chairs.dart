@@ -4,6 +4,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:share_chairs/common/constant.dart';
+import 'package:share_chairs/repository/user_repository.dart';
 
 class ShareChairs extends StatefulWidget {
   const ShareChairs({Key? key}) : super(key: key);
@@ -18,7 +19,6 @@ class _ShareChairsState extends State<ShareChairs> {
   TextEditingController roomto = TextEditingController();
   TextEditingController color = TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
 
   int _selectedRoom = 0;
   int _selectedRoomto = 1;
@@ -40,8 +40,9 @@ class _ShareChairsState extends State<ShareChairs> {
     var doc = res.docs;
     rooms.addAll(doc.map((val) => val.data()['room']));
     rooms.removeWhere((element) => element == "broken");
-    rooms.add("Other");
+    // rooms.add("Other");
     roomsto = rooms;
+    roomsto.add("Other");
   }
 
   Future shareChairs() async {
@@ -91,6 +92,15 @@ class _ShareChairsState extends State<ShareChairs> {
               ? stats.docs[0]['Inventory'] + int.parse(nos.text)
               : stats.docs[0]['Inventory'],
         }, SetOptions(merge: true));
+        await UserRepository().addtoFeed(
+          rooms[_selectedRoom] == "Other" ? room.text : rooms[_selectedRoom],
+          roomsto[_selectedRoomto] == "Other"
+              ? roomto.text
+              : roomsto[_selectedRoomto],
+          colors[_selectedColor],
+          "shared",
+          int.parse(nos.text),
+        );
         setState(() {
           color.clear();
           room.clear();
@@ -220,7 +230,6 @@ class _ShareChairsState extends State<ShareChairs> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -228,15 +237,7 @@ class _ShareChairsState extends State<ShareChairs> {
       backgroundColor: backgroundColor,
       appBar: AppBar(
         backgroundColor: solidWhite,
-        leading: IconButton(
-          onPressed: () {
-            _scaffoldKey.currentState!.openDrawer();
-          },
-          icon: Icon(
-            Icons.menu,
-            color: primaryColor,
-          ),
-        ),
+        leading: null,
         centerTitle: true,
         title: Text(
           "Share Chairs",
@@ -246,7 +247,7 @@ class _ShareChairsState extends State<ShareChairs> {
           ),
         ),
       ),
-      drawer: Drawer(),
+      // drawer: Drawer(),
       body: SingleChildScrollView(
           child: Container(
         padding: EdgeInsets.all(20),
@@ -282,8 +283,17 @@ class _ShareChairsState extends State<ShareChairs> {
                       width: 300,
                       height: 50.0,
                       decoration: BoxDecoration(
-                          color: shareClicked ? Colors.grey[400] : primaryColor,
-                          borderRadius: BorderRadius.circular(15)),
+                        color: shareClicked ? Colors.grey[400] : primaryColor,
+                        borderRadius: BorderRadius.circular(15),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.shade300,
+                            spreadRadius: 2,
+                            blurRadius: 2,
+                            offset: Offset(3, 3),
+                          ),
+                        ],
+                      ),
                       child: TextButton(
                         onPressed: shareClicked
                             ? null

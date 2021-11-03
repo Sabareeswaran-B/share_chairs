@@ -74,8 +74,17 @@ class PasswordVerify extends StatelessWidget {
                 height: 45,
                 width: 200,
                 decoration: new BoxDecoration(
-                    color: primaryColor,
-                    borderRadius: BorderRadius.all(Radius.circular(25))),
+                  color: primaryColor,
+                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.shade300,
+                      spreadRadius: 2,
+                      blurRadius: 2,
+                      offset: Offset(3, 3),
+                    ),
+                  ],
+                ),
                 margin: EdgeInsets.only(top: 20, bottom: 10),
                 child: TextButton(
                   onPressed: () {
@@ -182,9 +191,18 @@ class _EmailVerifyState extends State<EmailVerify> {
                 height: 45,
                 width: 200,
                 decoration: new BoxDecoration(
-                    // gradient: blueGradient,
-                    color: primaryColor,
-                    borderRadius: BorderRadius.all(Radius.circular(25))),
+                  // gradient: blueGradient,
+                  color: primaryColor,
+                  borderRadius: BorderRadius.all(Radius.circular(25)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.shade300,
+                      spreadRadius: 2,
+                      blurRadius: 2,
+                      offset: Offset(3, 3),
+                    ),
+                  ],
+                ),
                 margin: EdgeInsets.only(top: 20, bottom: 10),
                 child: TextButton(
                   onPressed: () {
@@ -277,9 +295,18 @@ class UserNotFound extends StatelessWidget {
                 height: 45,
                 width: 200,
                 decoration: new BoxDecoration(
-                    // gradient: blueGradient,
-                    color: primaryColor,
-                    borderRadius: BorderRadius.all(Radius.circular(25))),
+                  // gradient: blueGradient,
+                  color: primaryColor,
+                  borderRadius: BorderRadius.all(Radius.circular(25)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.shade300,
+                      spreadRadius: 2,
+                      blurRadius: 2,
+                      offset: Offset(3, 3),
+                    ),
+                  ],
+                ),
                 margin: EdgeInsets.only(top: 20, bottom: 10),
                 child: TextButton(
                   onPressed: () {

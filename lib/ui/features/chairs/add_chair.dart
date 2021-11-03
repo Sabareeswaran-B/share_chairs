@@ -4,6 +4,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:share_chairs/common/constant.dart';
+import 'package:share_chairs/repository/user_repository.dart';
 
 class AddChairs extends StatefulWidget {
   const AddChairs({Key? key}) : super(key: key);
@@ -21,7 +22,7 @@ class _AddChairsState extends State<AddChairs> {
   int _selectedRoom = 0;
   int _selectedColor = 0;
   List<String> rooms = [];
-  List<String> colors = ['White', 'Sandal', 'Brown', 'Black', 'Other'];
+  List<String> colors = ['White', 'Sandal', 'Brown', 'Black'];
 
   bool addClicked = false;
 
@@ -76,6 +77,13 @@ class _AddChairsState extends State<AddChairs> {
               ? stats.docs[0]['Inventory'] + int.parse(nos.text)
               : stats.docs[0]['Inventory'],
         }, SetOptions(merge: true));
+        await UserRepository().addtoFeed(
+          "new",
+          rooms[_selectedRoom] == "Other" ? room.text : rooms[_selectedRoom],
+          colors[_selectedColor],
+          "added",
+          int.parse(nos.text),
+        );
         setState(() {
           color.clear();
           room.clear();
@@ -143,15 +151,7 @@ class _AddChairsState extends State<AddChairs> {
       key: _scaffoldKey,
       appBar: AppBar(
         backgroundColor: solidWhite,
-        leading: IconButton(
-          onPressed: () {
-            _scaffoldKey.currentState!.openDrawer();
-          },
-          icon: Icon(
-            Icons.menu,
-            color: primaryColor,
-          ),
-        ),
+        leading: null,
         centerTitle: true,
         title: Text(
           "Add Chairs",
@@ -161,7 +161,7 @@ class _AddChairsState extends State<AddChairs> {
           ),
         ),
       ),
-      drawer: Drawer(),
+      // drawer: Drawer(),
       body: SingleChildScrollView(
           child: Container(
         padding: EdgeInsets.all(20),
@@ -181,7 +181,15 @@ class _AddChairsState extends State<AddChairs> {
                       height: 50.0,
                       decoration: BoxDecoration(
                           color: addClicked ? Colors.grey[400] : primaryColor,
-                          borderRadius: BorderRadius.circular(15)),
+                          borderRadius: BorderRadius.circular(15),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.shade300,
+                              spreadRadius: 2,
+                              blurRadius: 2,
+                              offset: Offset(3, 3),
+                            )
+                          ]),
                       child: TextButton(
                         onPressed: addClicked
                             ? null
