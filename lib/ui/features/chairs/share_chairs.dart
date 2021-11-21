@@ -41,7 +41,7 @@ class _ShareChairsState extends State<ShareChairs> {
     rooms.addAll(doc.map((val) => val.data()['room']));
     rooms.removeWhere((element) => element == "Broken");
     // rooms.add("Other");
-    roomsto = rooms;
+    roomsto.addAll(rooms);
     roomsto.add("Other");
   }
 
@@ -258,6 +258,7 @@ class _ShareChairsState extends State<ShareChairs> {
                   children: [
                     colorTF(),
                     Container(
+                      // height: 25,
                       margin: EdgeInsets.symmetric(horizontal: 15),
                       alignment: Alignment.centerLeft,
                       child: Text(
@@ -267,6 +268,7 @@ class _ShareChairsState extends State<ShareChairs> {
                     ),
                     roomTF(),
                     Container(
+                      // height: 25,
                       margin: EdgeInsets.symmetric(horizontal: 15),
                       alignment: Alignment.centerLeft,
                       child: Text(
@@ -352,7 +354,7 @@ class _ShareChairsState extends State<ShareChairs> {
               borderSide: BorderSide(color: primaryColor, width: 1.5),
             ),
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10.0)),
+              borderRadius: BorderRadius.all(Radius.circular(12.0)),
               borderSide: BorderSide(color: primaryColor, width: 1.5),
             ),
           ),
@@ -370,18 +372,18 @@ class _ShareChairsState extends State<ShareChairs> {
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: rooms[_selectedRoom] != "Other"
           ? Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10.0),
-                border: Border.all(color: primaryColor, width: 1.5),
-              ),
+              // decoration: BoxDecoration(
+              //   borderRadius: BorderRadius.circular(10.0),
+              //   border: Border.all(color: primaryColor, width: 1.5),
+              // ),
               child: DropdownButtonFormField(
                 // onSaved: (value) => profession = value,
                 isExpanded: true,
                 decoration: InputDecoration(
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    borderSide: BorderSide(color: Color(0xffedeff5)),
-                  ),
+                  // focusedBorder: OutlineInputBorder(
+                  //   borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  //   borderSide: BorderSide(color: Color(0xffedeff5)),
+                  // ),
                   focusColor: primaryColor,
                   contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 0.0, 15.0),
                   prefixIcon: Icon(
@@ -392,9 +394,16 @@ class _ShareChairsState extends State<ShareChairs> {
                   hintText: "From Room name",
                   hintStyle: TextStyle(color: primaryColor),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide:
-                        BorderSide(width: 1.5, style: BorderStyle.solid),
+                    borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                    borderSide: BorderSide(color: primaryColor, width: 1),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                    borderSide: BorderSide(color: primaryColor, width: 1.5),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                    borderSide: BorderSide(color: primaryColor, width: 1.5),
                   ),
                   floatingLabelBehavior: FloatingLabelBehavior.never,
                 ),
@@ -437,12 +446,12 @@ class _ShareChairsState extends State<ShareChairs> {
               decoration: InputDecoration(
                 labelText: "Enter the Room name",
                 labelStyle: TextStyle(color: primaryColor),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                  borderSide: BorderSide(
-                    color: Color(0xffedeff5),
-                  ),
-                ),
+                // border: OutlineInputBorder(
+                //   borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                //   borderSide: BorderSide(
+                //     color: Color(0xffedeff5),
+                //   ),
+                // ),
                 // hintText: 'Enter the Profession',
                 prefixIcon: Icon(
                   Icons.star,
@@ -461,12 +470,16 @@ class _ShareChairsState extends State<ShareChairs> {
                   ),
                 ),
                 hintStyle: TextStyle(color: Colors.grey),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                  borderSide: BorderSide(color: primaryColor, width: 1),
+                ),
                 enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  borderRadius: BorderRadius.all(Radius.circular(12.0)),
                   borderSide: BorderSide(color: primaryColor, width: 1.5),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  borderRadius: BorderRadius.all(Radius.circular(12.0)),
                   borderSide: BorderSide(color: primaryColor, width: 1.5),
                 ),
               ),
@@ -481,18 +494,18 @@ class _ShareChairsState extends State<ShareChairs> {
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: roomsto[_selectedRoomto] != "Other"
           ? Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10.0),
-                border: Border.all(color: primaryColor, width: 1.5),
-              ),
+              // decoration: BoxDecoration(
+              //   borderRadius: BorderRadius.circular(10.0),
+              //   border: Border.all(color: primaryColor, width: 1.5),
+              // ),
               child: DropdownButtonFormField(
                 // onSaved: (value) => profession = value,
                 isExpanded: true,
                 decoration: InputDecoration(
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    borderSide: BorderSide(color: Color(0xffedeff5)),
-                  ),
+                  // focusedBorder: OutlineInputBorder(
+                  //   borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  //   borderSide: BorderSide(color: Color(0xffedeff5)),
+                  // ),
                   focusColor: primaryColor,
                   contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 0.0, 15.0),
                   prefixIcon: Icon(
@@ -503,9 +516,16 @@ class _ShareChairsState extends State<ShareChairs> {
                   hintText: "To Room name",
                   hintStyle: TextStyle(color: primaryColor),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide:
-                        BorderSide(width: 1.5, style: BorderStyle.solid),
+                    borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                    borderSide: BorderSide(color: primaryColor, width: 1),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                    borderSide: BorderSide(color: primaryColor, width: 1.5),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                    borderSide: BorderSide(color: primaryColor, width: 1.5),
                   ),
                   floatingLabelBehavior: FloatingLabelBehavior.never,
                 ),
@@ -593,18 +613,18 @@ class _ShareChairsState extends State<ShareChairs> {
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: colors[_selectedColor] != "Other"
           ? Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10.0),
-                border: Border.all(color: primaryColor, width: 1.5),
-              ),
+              // decoration: BoxDecoration(
+              //   borderRadius: BorderRadius.circular(10.0),
+              //   border: Border.all(color: primaryColor, width: 1.5),
+              // ),
               child: DropdownButtonFormField(
                 // onSaved: (value) => profession = value,
                 isExpanded: true,
                 decoration: InputDecoration(
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    borderSide: BorderSide(color: Color(0xffedeff5)),
-                  ),
+                  // focusedBorder: OutlineInputBorder(
+                  //   borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  //   borderSide: BorderSide(color: Color(0xffedeff5)),
+                  // ),
                   focusColor: primaryColor,
                   contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 0.0, 15.0),
                   prefixIcon: Icon(
@@ -615,9 +635,16 @@ class _ShareChairsState extends State<ShareChairs> {
                   hintText: "Color",
                   hintStyle: TextStyle(color: primaryColor),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide:
-                        BorderSide(width: 1.5, style: BorderStyle.solid),
+                    borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                    borderSide: BorderSide(color: primaryColor, width: 1),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                    borderSide: BorderSide(color: primaryColor, width: 1.5),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                    borderSide: BorderSide(color: primaryColor, width: 1.5),
                   ),
                   floatingLabelBehavior: FloatingLabelBehavior.never,
                 ),
@@ -660,12 +687,12 @@ class _ShareChairsState extends State<ShareChairs> {
               decoration: InputDecoration(
                 labelText: "Enter the Color",
                 labelStyle: TextStyle(color: primaryColor),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                  borderSide: BorderSide(
-                    color: Color(0xffedeff5),
-                  ),
-                ),
+                // border: OutlineInputBorder(
+                //   borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                //   borderSide: BorderSide(
+                //     color: Color(0xffedeff5),
+                //   ),
+                // ),
                 // hintText: 'Enter the Profession',
                 prefixIcon: Icon(
                   Icons.star,
@@ -684,12 +711,16 @@ class _ShareChairsState extends State<ShareChairs> {
                   ),
                 ),
                 hintStyle: TextStyle(color: Colors.grey),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                  borderSide: BorderSide(color: primaryColor, width: 1),
+                ),
                 enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  borderRadius: BorderRadius.all(Radius.circular(12.0)),
                   borderSide: BorderSide(color: primaryColor, width: 1.5),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  borderRadius: BorderRadius.all(Radius.circular(12.0)),
                   borderSide: BorderSide(color: primaryColor, width: 1.5),
                 ),
               ),

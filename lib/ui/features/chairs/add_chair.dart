@@ -248,7 +248,7 @@ class _AddChairsState extends State<AddChairs> {
               borderSide: BorderSide(color: primaryColor, width: 1.5),
             ),
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10.0)),
+              borderRadius: BorderRadius.all(Radius.circular(12.0)),
               borderSide: BorderSide(color: primaryColor, width: 1.5),
             ),
           ),
@@ -266,17 +266,21 @@ class _AddChairsState extends State<AddChairs> {
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: rooms[_selectedRoom] != "Other"
           ? Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10.0),
-                border: Border.all(color: primaryColor, width: 1.5),
-              ),
+              // decoration: BoxDecoration(
+              //   borderRadius: BorderRadius.circular(10.0),
+              //   border: Border.all(color: primaryColor, width: 1.5),
+              // ),
               child: DropdownButtonFormField(
                 // onSaved: (value) => profession = value,
                 isExpanded: true,
                 decoration: InputDecoration(
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                    borderSide: BorderSide(color: primaryColor, width: 1.5),
+                  ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    borderSide: BorderSide(color: Color(0xffedeff5)),
+                    borderSide: BorderSide(color: primaryColor, width: 1.5),
                   ),
                   focusColor: primaryColor,
                   contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 0.0, 15.0),
@@ -334,10 +338,8 @@ class _AddChairsState extends State<AddChairs> {
                 labelText: "Enter the Room name",
                 labelStyle: TextStyle(color: primaryColor),
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                  borderSide: BorderSide(
-                    color: Color(0xffedeff5),
-                  ),
+                  borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                  borderSide: BorderSide(color: primaryColor, width: 1),
                 ),
                 // hintText: 'Enter the Profession',
                 prefixIcon: Icon(
@@ -358,12 +360,12 @@ class _AddChairsState extends State<AddChairs> {
                 ),
                 hintStyle: TextStyle(color: Colors.grey),
                 enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                  borderSide: BorderSide(color: primaryColor, width: 1.5),
+                  borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                  borderSide: BorderSide(color: primaryColor, width: 1),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                  borderSide: BorderSide(color: primaryColor, width: 1.5),
+                  borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                  borderSide: BorderSide(color: primaryColor, width: 1),
                 ),
               ),
               autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -377,17 +379,21 @@ class _AddChairsState extends State<AddChairs> {
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: colors[_selectedColor] != "Other"
           ? Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10.0),
-                border: Border.all(color: primaryColor, width: 1.5),
-              ),
+              // decoration: BoxDecoration(
+              //   borderRadius: BorderRadius.circular(10.0),
+              //   border: Border.all(color: primaryColor, width: 1.5),
+              // ),
               child: DropdownButtonFormField(
                 // onSaved: (value) => profession = value,
                 isExpanded: true,
                 decoration: InputDecoration(
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                    borderSide: BorderSide(color: primaryColor, width: 1.5),
+                  ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    borderSide: BorderSide(color: Color(0xffedeff5)),
+                    borderSide: BorderSide(color: primaryColor, width: 1.5),
                   ),
                   focusColor: primaryColor,
                   contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 0.0, 15.0),

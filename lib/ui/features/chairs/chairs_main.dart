@@ -79,12 +79,12 @@ class _ChairsMainState extends State<ChairsMain> {
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        // color: Colors.white,
-        gradient: LinearGradient(
-          colors: [Colors.brown.shade50, solidWhite],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-        ),
+        color: Colors.white,
+        // gradient: LinearGradient(
+        //   colors: [Colors.brown.shade100, Colors.brown.shade50],
+        //   begin: Alignment.topCenter,
+        //   end: Alignment.bottomCenter,
+        // ),
         boxShadow: [
           BoxShadow(
             color: Colors.grey.shade300,
@@ -198,12 +198,12 @@ class _ChairsMainState extends State<ChairsMain> {
               Container(
                 padding: EdgeInsets.only(bottom: 25),
                 decoration: BoxDecoration(
-                  // color: primaryColor,
-                  gradient: LinearGradient(
-                    colors: [primaryColor, Colors.brown.shade600],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                  ),
+                  color: primaryColor,
+                  // gradient: LinearGradient(
+                  //   colors: [primaryColor, Colors.brown.shade600],
+                  //   begin: Alignment.topCenter,
+                  //   end: Alignment.bottomCenter,
+                  // ),
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(25),
                     bottomRight: Radius.circular(25),
@@ -248,11 +248,12 @@ class _ChairsMainState extends State<ChairsMain> {
                               height: 60,
                               width: 60,
                               decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  colors: [primaryColor, Colors.brown.shade600],
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                ),
+                                color: primaryColor,
+                                // gradient: LinearGradient(
+                                //   colors: [primaryColor, Colors.brown.shade600],
+                                //   begin: Alignment.topCenter,
+                                //   end: Alignment.bottomCenter,
+                                // ),
                                 borderRadius: BorderRadius.circular(15),
                                 boxShadow: [
                                   BoxShadow(
@@ -298,11 +299,12 @@ class _ChairsMainState extends State<ChairsMain> {
                               height: 60,
                               width: 60,
                               decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  colors: [primaryColor, Colors.brown.shade600],
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                ),
+                                color: primaryColor,
+                                // gradient: LinearGradient(
+                                //   colors: [primaryColor, Colors.brown.shade600],
+                                //   begin: Alignment.topCenter,
+                                //   end: Alignment.bottomCenter,
+                                // ),
                                 borderRadius: BorderRadius.circular(15),
                                 boxShadow: [
                                   BoxShadow(
@@ -368,11 +370,12 @@ class _ChairsMainState extends State<ChairsMain> {
                               height: 60,
                               width: 60,
                               decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  colors: [primaryColor, Colors.brown.shade600],
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                ),
+                                color: primaryColor,
+                                // gradient: LinearGradient(
+                                //   colors: [primaryColor, Colors.brown.shade600],
+                                //   begin: Alignment.topCenter,
+                                //   end: Alignment.bottomCenter,
+                                // ),
                                 borderRadius: BorderRadius.circular(15),
                                 boxShadow: [
                                   BoxShadow(

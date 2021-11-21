@@ -458,7 +458,7 @@ class _SignUpFormState extends State<SignUpForm> {
     if (picked != selectedDate)
       setState(() {
         selectedDate = picked;
-        dob.text = DateFormat("dd-MM-yyyy").format(selectedDate);
+        dob.text = DateFormat("yyyy-MM-dd").format(selectedDate);
       });
   }
 
@@ -711,4 +711,5 @@ class _SignUpFormState extends State<SignUpForm> {
       ),
     );
   }
+
 }

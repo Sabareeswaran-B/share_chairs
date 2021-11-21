@@ -124,7 +124,6 @@ class _DeleteState extends State<Delete> {
             }, SetOptions(merge: true));
             await addChairs();
             await UserRepository().addtoFeed(
-
               rooms[_selectedRoom] == "Other"
                   ? room.text
                   : rooms[_selectedRoom],
@@ -414,7 +413,7 @@ class _DeleteState extends State<Delete> {
               borderSide: BorderSide(color: primaryColor, width: 1.5),
             ),
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10.0)),
+              borderRadius: BorderRadius.all(Radius.circular(12.0)),
               borderSide: BorderSide(color: primaryColor, width: 1.5),
             ),
           ),
@@ -432,18 +431,14 @@ class _DeleteState extends State<Delete> {
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: rooms[_selectedRoom] != "Other"
           ? Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10.0),
-                border: Border.all(color: primaryColor, width: 1.5),
-              ),
+              // decoration: BoxDecoration(
+              //   borderRadius: BorderRadius.circular(10.0),
+              //   border: Border.all(color: primaryColor, width: 1.5),
+              // ),
               child: DropdownButtonFormField(
                 // onSaved: (value) => profession = value,
                 isExpanded: true,
                 decoration: InputDecoration(
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    borderSide: BorderSide(color: Color(0xffedeff5)),
-                  ),
                   focusColor: primaryColor,
                   contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 0.0, 15.0),
                   prefixIcon: Icon(
@@ -454,9 +449,16 @@ class _DeleteState extends State<Delete> {
                   hintText: "Room name",
                   hintStyle: TextStyle(color: primaryColor),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide:
-                        BorderSide(width: 1.5, style: BorderStyle.solid),
+                    borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                    borderSide: BorderSide(color: primaryColor, width: 1),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                    borderSide: BorderSide(color: primaryColor, width: 1.5),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                    borderSide: BorderSide(color: primaryColor, width: 1.5),
                   ),
                   floatingLabelBehavior: FloatingLabelBehavior.never,
                 ),
@@ -500,10 +502,16 @@ class _DeleteState extends State<Delete> {
                 labelText: "Enter the Room name",
                 labelStyle: TextStyle(color: primaryColor),
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                  borderSide: BorderSide(
-                    color: Color(0xffedeff5),
-                  ),
+                  borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                  borderSide: BorderSide(color: primaryColor, width: 1),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                  borderSide: BorderSide(color: primaryColor, width: 1.5),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                  borderSide: BorderSide(color: primaryColor, width: 1.5),
                 ),
                 // hintText: 'Enter the Profession',
                 prefixIcon: Icon(
@@ -523,14 +531,6 @@ class _DeleteState extends State<Delete> {
                   ),
                 ),
                 hintStyle: TextStyle(color: Colors.grey),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                  borderSide: BorderSide(color: primaryColor, width: 1.5),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                  borderSide: BorderSide(color: primaryColor, width: 1.5),
-                ),
               ),
               autovalidateMode: AutovalidateMode.onUserInteraction,
               validator: RequiredValidator(errorText: "Room name is Required"),
@@ -543,18 +543,18 @@ class _DeleteState extends State<Delete> {
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: colors[_selectedColor] != "Other"
           ? Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10.0),
-                border: Border.all(color: primaryColor, width: 1.5),
-              ),
+              // decoration: BoxDecoration(
+              //   borderRadius: BorderRadius.circular(10.0),
+              //   border: Border.all(color: primaryColor, width: 1.5),
+              // ),
               child: DropdownButtonFormField(
                 // onSaved: (value) => profession = value,
                 isExpanded: true,
                 decoration: InputDecoration(
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    borderSide: BorderSide(color: Color(0xffedeff5)),
-                  ),
+                  // focusedBorder: OutlineInputBorder(
+                  //   borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  //   borderSide: BorderSide(color: Color(0xffedeff5)),
+                  // ),
                   focusColor: primaryColor,
                   contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 0.0, 15.0),
                   prefixIcon: Icon(
@@ -565,9 +565,16 @@ class _DeleteState extends State<Delete> {
                   hintText: "Color",
                   hintStyle: TextStyle(color: primaryColor),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide:
-                        BorderSide(width: 1.5, style: BorderStyle.solid),
+                    borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                    borderSide: BorderSide(color: primaryColor, width: 1),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                    borderSide: BorderSide(color: primaryColor, width: 1.5),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                    borderSide: BorderSide(color: primaryColor, width: 1.5),
                   ),
                   floatingLabelBehavior: FloatingLabelBehavior.never,
                 ),
@@ -609,13 +616,7 @@ class _DeleteState extends State<Delete> {
               keyboardType: TextInputType.name,
               decoration: InputDecoration(
                 labelText: "Enter the Color",
-                labelStyle: TextStyle(color: primaryColor),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                  borderSide: BorderSide(
-                    color: Color(0xffedeff5),
-                  ),
-                ),
+                labelStyle: TextStyle(color: primaryColor),                
                 // hintText: 'Enter the Profession',
                 prefixIcon: Icon(
                   Icons.star,
@@ -634,12 +635,16 @@ class _DeleteState extends State<Delete> {
                   ),
                 ),
                 hintStyle: TextStyle(color: Colors.grey),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                  borderSide: BorderSide(color: primaryColor, width: 1),
+                ),
                 enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  borderRadius: BorderRadius.all(Radius.circular(12.0)),
                   borderSide: BorderSide(color: primaryColor, width: 1.5),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  borderRadius: BorderRadius.all(Radius.circular(12.0)),
                   borderSide: BorderSide(color: primaryColor, width: 1.5),
                 ),
               ),
